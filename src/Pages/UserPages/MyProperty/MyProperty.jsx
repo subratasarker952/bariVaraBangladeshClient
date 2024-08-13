@@ -10,7 +10,7 @@ const MyProperty = () => {
 
   useEffect(() => {
     axios
-      .get(`https://barivarabangladeshserver.vercel.app/properties/email?email=${user?.email}`, {
+      .get(`${import.meta.env.SERVER_URL}/properties/email?email=${user?.email}`, {
         headers: {
           authorization: `barer ${localStorage.getItem("token")}`,
         },
@@ -21,7 +21,7 @@ const MyProperty = () => {
   const handleDelete = (property) => {
     const sure = window.confirm("Are You Sure? Delete " + property.title);
     if (sure) {
-      fetch(`https://barivarabangladeshserver.vercel.app/properties/${property._id}`, {
+      fetch(`${import.meta.env.SERVER_URL}/properties/${property._id}`, {
         method: "DELETE",
         headers: {
           "content-type": "application/json",
@@ -47,7 +47,7 @@ const MyProperty = () => {
     };
     axios
       .patch(
-        `https://barivarabangladeshserver.vercel.app/payment/${id}?email=${user?.email}`,
+        `${import.meta.env.SERVER_URL}/payment/${id}?email=${user?.email}`,
         patchField
       )
       .then((res) => {

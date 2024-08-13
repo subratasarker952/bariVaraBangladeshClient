@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
         // jwt from here
         // send to db from here
         const userInfoJwt = { email: currentUser?.email };
-        fetch("https://barivarabangladeshserver.vercel.app/jwt", {
+        fetch(`${import.meta.env.SERVER_URL}/jwt`, {
           method: "POST",
           headers: {
             "Content-type": "application/json; charset=UTF-8",
@@ -48,7 +48,7 @@ const AuthProvider = ({ children }) => {
           img: currentUser?.photoURL,
         };
 
-        fetch("https://barivarabangladeshserver.vercel.app/users", {
+        fetch(`${import.meta.env.SERVER_URL}/users`, {
           method: "POST",
           headers: {
             "Content-type": "application/json; charset=UTF-8",

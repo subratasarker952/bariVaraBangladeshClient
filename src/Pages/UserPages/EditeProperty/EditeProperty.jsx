@@ -109,7 +109,7 @@ const EditeProperty = () => {
 
     try {
       const response = await axios.post(
-        "https://barivarabangladeshserver.vercel.app/imageUpload",
+        `${import.meta.env.SERVER_URL}/imageUpload`,
         formData,
         {
           headers: {
@@ -132,7 +132,7 @@ const EditeProperty = () => {
     if (sure) {
       try {
         const response = await axios.patch(
-          `https://barivarabangladeshserver.vercel.app/properties/${loaderData._id}`,
+          `${import.meta.env.SERVER_URL}/properties/${loaderData._id}`,
           property,
           {
             method: "PATCH",

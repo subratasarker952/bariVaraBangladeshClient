@@ -4,7 +4,7 @@ const DashboardHome = () => {
   const [states, setStates] = useState({});
 
   useEffect(() => {
-    fetch(`https://barivarabangladeshserver.vercel.app/states`, {
+    fetch(`${import.meta.env.SERVER_URL}/states`, {
       method: "GET",
       headers: {
         "Content-type": "application/json; charset=UTF-8",

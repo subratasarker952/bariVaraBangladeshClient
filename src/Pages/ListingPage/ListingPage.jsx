@@ -15,7 +15,7 @@ const ListingsPage = () => {
   useEffect(() => {
     const fetchAllProperties = async () => {
       try {
-        const response = await axios.get("https://barivarabangladeshserver.vercel.app/properties", {
+        const response = await axios.get(`${import.meta.env.SERVER_URL}/properties`, {
           params: { ...filters, page: currentPage },
         });
         setAllProperties(response.data.properties);
@@ -26,7 +26,7 @@ const ListingsPage = () => {
     };
 
     fetchAllProperties();
-    const publishProperties = allProperties.filter(
+    const publishProperties = allProperties?.filter(
       (property) => property.publishStatus == "public"
     );
     setPublishProperties(publishProperties);
@@ -52,8 +52,8 @@ const ListingsPage = () => {
         <SearchBar onSearch={handleSearch} />
         <Filter onFilter={handleFilter} />
       </div>
-      {publishProperties.length > 1 && (
-        <p> Search Result: {publishProperties.length} </p>
+      {publishProperties?.length > 1 && (
+        <p> Search Result: {publishProperties?.length} </p>
       )}
 
       <section className="py-8">
