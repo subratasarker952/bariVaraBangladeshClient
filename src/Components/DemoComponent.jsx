@@ -14,7 +14,7 @@ const DemoComponent = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/imageUpload",
+        "https://barivarabangladeshserver.vercel.app/imageUpload",
         formData
       );
 

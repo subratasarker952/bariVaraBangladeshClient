@@ -134,7 +134,7 @@ const AddProperty = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/imageUpload",
+        "https://barivarabangladeshserver.vercel.app/imageUpload",
         formData,
         {
           headers: {
@@ -156,7 +156,7 @@ const AddProperty = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/properties",
+        "https://barivarabangladeshserver.vercel.app/properties",
         property,
         {
           headers: {
