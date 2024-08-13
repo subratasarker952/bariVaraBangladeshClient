@@ -1,0 +1,16 @@
+export const rentalTypes = [
+  "Apartment",
+  "House",
+  "Condominium",
+  "Townhouse",
+  "Duplex",
+  "Studio",
+  "Loft",
+  "Bungalow",
+  "Villa",
+  "Cottage",
+  "Cabin",
+  "Mobile Home",
+  "Mansion",
+  "Farmhouse",
+];
