@@ -15,7 +15,7 @@ const ListingsPage = () => {
   useEffect(() => {
     const fetchAllProperties = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.SERVER_URL}/properties`, {
+        const response = await axios.get(`https://barivarabangladeshserver.vercel.app/properties`, {
           params: { ...filters, page: currentPage },
         });
         setAllProperties(response.data.properties);

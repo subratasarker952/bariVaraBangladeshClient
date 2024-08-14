@@ -39,7 +39,7 @@ const router = createBrowserRouter([
         path: "/properties/:id",
         element: <SinglePropertyPage />,
         loader: ({ params }) =>
-          fetch(`${import.meta.env.SERVER_URL}/properties/${params.id}`),
+          fetch(`https://barivarabangladeshserver.vercel.app/properties/${params.id}`),
       },
       {
         path: "/login",
@@ -116,7 +116,7 @@ const router = createBrowserRouter([
         path: "editProperty/:id",
         element: <EditeProperty />,
         loader: ({ params }) =>
-          fetch(`${import.meta.env.SERVER_URL}/properties/${params.id}`),
+          fetch(`https://barivarabangladeshserver.vercel.app/properties/${params.id}`),
       },
       {
         path: "myProperty",

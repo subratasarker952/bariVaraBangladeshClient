@@ -12,7 +12,7 @@ const PaymentSuccess = () => {
     const fetchProperty = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.SERVER_URL}/property/${tran_id}`,
+          `https://barivarabangladeshserver.vercel.app/property/${tran_id}`,
           {
             headers: {
               authorization: `barer ${localStorage.getItem("token")}`,

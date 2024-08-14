@@ -30,7 +30,7 @@ const AddProperty = () => {
     condition: "",
     email: "",
     paymentStatus: "due",
-    publishStatus: "hide",
+    publishStatus: "hidden",
     owner: user?.email || "",
   });
   const [divisions, setDivisions] = useState([]);
@@ -120,10 +120,11 @@ const AddProperty = () => {
   };
 
   const handleImageChange = async (e) => {
-    const files = e.target.files;
+    let files = e.target.files;
 
     if (files?.length > 6) {
-      return toast.error("upto 6 images");
+      toast.error("upto 6 images");
+      return;
     }
 
     const formData = new FormData();
@@ -134,7 +135,7 @@ const AddProperty = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.SERVER_URL}/imageUpload`,
+        `https://barivarabangladeshserver.vercel.app/imageUpload`,
         formData,
         {
           headers: {
@@ -151,12 +152,13 @@ const AddProperty = () => {
       toast.error("Failed to create property");
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post(
-        `${import.meta.env.SERVER_URL}/properties`,
+        `https://barivarabangladeshserver.vercel.app/properties`,
         property,
         {
           headers: {
@@ -302,12 +304,8 @@ const AddProperty = () => {
           >
             <option value="">Select Type</option>
             {rentalTypes.map((rentalType, index) => (
-              <option
-                key={index}
-                value={rentalType.type}
-                className="capitalize"
-              >
-                {rentalType.type}
+              <option key={index} value={rentalType} className="capitalize">
+                {rentalType}
               </option>
             ))}
           </select>

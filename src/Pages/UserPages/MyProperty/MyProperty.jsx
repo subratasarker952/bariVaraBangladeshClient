@@ -10,7 +10,7 @@ const MyProperty = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.SERVER_URL}/properties/email?email=${user?.email}`, {
+      .get(`https://barivarabangladeshserver.vercel.app/properties/email?email=${user?.email}`, {
         headers: {
           authorization: `barer ${localStorage.getItem("token")}`,
         },
@@ -21,7 +21,7 @@ const MyProperty = () => {
   const handleDelete = (property) => {
     const sure = window.confirm("Are You Sure? Delete " + property.title);
     if (sure) {
-      fetch(`${import.meta.env.SERVER_URL}/properties/${property._id}`, {
+      fetch(`https://barivarabangladeshserver.vercel.app/properties/${property._id}`, {
         method: "DELETE",
         headers: {
           "content-type": "application/json",
@@ -42,12 +42,12 @@ const MyProperty = () => {
   const handlePay = (id) => {
     const patchField = {
       paymentStatus: "due",
-      publishStatus: "hide",
+      publishStatus: "hidden",
       amount: 100,
     };
     axios
       .patch(
-        `${import.meta.env.SERVER_URL}/payment/${id}?email=${user?.email}`,
+        `https://barivarabangladeshserver.vercel.app/payment/${id}?email=${user?.email}`,
         patchField
       )
       .then((res) => {
@@ -68,7 +68,7 @@ const MyProperty = () => {
             <th className="py-2 px-4 border-b">SL</th>
             <th className="py-2 px-4 border-b">Title</th>
             <th className="py-2 px-4 border-b">Type</th>
-            <th className="py-2 px-4 border-b">Payment Status</th>
+  
             <th className="py-2 px-4 border-b">Status</th>
             <th className="py-2 px-4 border-b">Actions</th>
           </tr>
@@ -81,7 +81,7 @@ const MyProperty = () => {
                 <Link to={`/properties/${property._id}`}>{property.title}</Link>
               </td>
               <td className="py-2 px-4 border-b">{property.type}</td>
-              <td className="py-2 px-4 border-b">{property.paymentStatus}</td>
+            
               <td className="py-2 px-4 border-b">{property.publishStatus}</td>
               <td className="py-2 px-4 border-b">
                 <Link
