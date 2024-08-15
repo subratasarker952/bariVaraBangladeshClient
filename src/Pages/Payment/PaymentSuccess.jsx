@@ -38,7 +38,7 @@ const PaymentSuccess = () => {
   } = property;
 
   return (
-    <div className="w-[400px] mx-auto text-xl p-2">
+    <div className="w-[450px] mx-auto text-xl p-2">
       <p className="font-bold text-2xl">Payment Info BariVaraBangladesh</p>
       <hr className="my-5 border border-red-500" />
       <div>
