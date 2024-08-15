@@ -16,7 +16,7 @@ const ListingsPage = () => {
     const fetchAllProperties = async () => {
       try {
         const response = await axios.get(
-          `https://barivarabangladeshserver.vercel.app/properties`,
+          `http://localhost:3000/properties`,
           {
             params: { ...filters, page: currentPage },
           }
