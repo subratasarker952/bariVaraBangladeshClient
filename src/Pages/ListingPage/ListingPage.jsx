@@ -27,7 +27,7 @@ const ListingsPage = () => {
 
     fetchAllProperties();
     const publishProperties = allProperties?.filter(
-      (property) => property.publishStatus == "public"
+      (property) => property.publishStatus == "published"
     );
     setPublishProperties(publishProperties);
   }, [filters, currentPage, allProperties]);

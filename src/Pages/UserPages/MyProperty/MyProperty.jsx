@@ -68,7 +68,6 @@ const MyProperty = () => {
             <th className="py-2 px-4 border-b">SL</th>
             <th className="py-2 px-4 border-b">Title</th>
             <th className="py-2 px-4 border-b">Type</th>
-  
             <th className="py-2 px-4 border-b">Status</th>
             <th className="py-2 px-4 border-b">Actions</th>
           </tr>
@@ -81,7 +80,6 @@ const MyProperty = () => {
                 <Link to={`/properties/${property._id}`}>{property.title}</Link>
               </td>
               <td className="py-2 px-4 border-b">{property.type}</td>
-            
               <td className="py-2 px-4 border-b">{property.publishStatus}</td>
               <td className="py-2 px-4 border-b">
                 <Link
@@ -99,9 +97,10 @@ const MyProperty = () => {
                 {property.paymentStatus === "due" && (
                   <button
                     onClick={() => handlePay(property._id)}
+                    title="100 tk pay for public its a fake payment system"
                     className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded"
                   >
-                    Pay For Public
+                    Pay
                   </button>
                 )}
               </td>
