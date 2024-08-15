@@ -54,7 +54,6 @@ const Filter = ({ onFilter }) => {
       upazila: "",
       postOffice: "",
       type: "",
-      maxPrice: Number,
     });
   };
 
@@ -206,7 +205,6 @@ const Filter = ({ onFilter }) => {
                 type="number"
                 className="p-2 border rounded  w-full block"
                 name="maxPrice"
-                value={filters.maxPrice}
                 onChange={handleChange}
                 placeholder="Maximum Price"
               />

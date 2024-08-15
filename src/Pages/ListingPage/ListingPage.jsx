@@ -15,9 +15,12 @@ const ListingsPage = () => {
   useEffect(() => {
     const fetchAllProperties = async () => {
       try {
-        const response = await axios.get(`https://barivarabangladeshserver.vercel.app/properties`, {
-          params: { ...filters, page: currentPage },
-        });
+        const response = await axios.get(
+          `https://barivarabangladeshserver.vercel.app/properties`,
+          {
+            params: { ...filters, page: currentPage },
+          }
+        );
         setAllProperties(response.data.properties);
         setTotalPages(response.data.totalPages);
       } catch (error) {
@@ -53,14 +56,16 @@ const ListingsPage = () => {
         <Filter onFilter={handleFilter} />
       </div>
       {publishProperties?.length > 1 && (
-        <p> Search Result: {publishProperties?.length} </p>
+        <p className="text-center"> Search Result: {publishProperties?.length} </p>
       )}
 
       <section className="py-8">
-        <div className="max-w-6xl mx-auto grid grid-cols-3 gap-8">
-          {publishProperties?.map((property) => (
-            <PropertyCard key={property._id} property={property} />
-          ))}
+        <div className="max-w-6xl mx-auto flex justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
+            {publishProperties?.map((property) => (
+              <PropertyCard key={property._id} property={property} />
+            ))}
+          </div>
         </div>
       </section>
       <div>
