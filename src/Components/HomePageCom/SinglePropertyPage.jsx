@@ -4,20 +4,20 @@ const SinglePropertyPage = () => {
   const property = useLoaderData();
 
   return (
-    <div className="max-w-4xl mx-auto py-8 p-2">
+    <div className="max-w-4xl mx-auto py-8 p-2 capitalize">
       <h2 className="text-3xl font-bold mb-8">{property.title}</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Property Images */}
         <div className="col-span-1 md:col-span-2">
           <h3 className="text-2xl font-bold mb-4">Images</h3>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {property?.images?.map((image, index) => (
               <img
                 key={index}
                 src={image}
                 alt={property.title}
-                className="w-full h-64 object-cover rounded"
+                className="w-full h-64 object-contain rounded"
               />
             ))}
           </div>

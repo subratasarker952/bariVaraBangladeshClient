@@ -4,7 +4,7 @@ const TestimonialItem = ({ testimonial }) => {
       <div className="md:flex">
         <div className="md:flex-shrink-0">
           <img
-            className="h-48 w-full object-cover md:w-48"
+            className="h-48 w-full object-contain md:w-48"
             src={testimonial.image}
             alt={testimonial.name}
           />

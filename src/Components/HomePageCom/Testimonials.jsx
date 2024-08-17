@@ -1,21 +1,24 @@
 import TestimonialItem from "./TestimonialItem.jsx";
+import people1 from '../../../src/assets/images/people1.png'
+import people2 from '../../../src/assets/images/people2.png'
+import people3 from '../../../src/assets/images/people3.png'
 
 const testimonials = [
   {
     name: "John Doe",
-    image: "https://via.placeholder.com/150",
+    image: people1,
     feedback:
       "This is the best rental service I have ever used. Highly recommended!",
   },
   {
     name: "Jane Smith",
-    image: "https://via.placeholder.com/150",
+    image: people2,
     feedback:
       "Fantastic properties and great customer service. I found my perfect home!",
   },
   {
     name: "Michael Johnson",
-    image: "https://via.placeholder.com/150",
+    image: people3,
     feedback:
       "A seamless and stress-free experience. Thank you for your excellent service!",
   },

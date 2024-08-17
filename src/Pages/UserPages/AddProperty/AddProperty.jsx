@@ -9,8 +9,10 @@ import {
 import { rentalTypes } from "../../../../public/RentalTypes";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const AddProperty = () => {
+  const navigate=useNavigate()
   const { user } = useAuth();
   const [property, setProperty] = useState({
     title: "",
@@ -169,6 +171,7 @@ const AddProperty = () => {
 
       if (response.status === 201) {
         toast.success("Property created successfully");
+        navigate('/dashboard/myProperty')
       } else {
         toast.error("Failed to create property");
       }
@@ -237,12 +240,14 @@ const AddProperty = () => {
           <select
             id="listingType"
             name="listingType"
+            onChange={handleChange}
             className="p-2 border rounded w-full"
             required
           >
-            <option value="ForRent">For Rent</option>
-            <option value="ForSale">For Sale</option>
-            <option value="ForLease">For Lease</option>
+            <option value="">Select One</option>
+            <option value="For-Rent">For Rent</option>
+            <option value="For-Sale">For Sale</option>
+            <option value="For-Lease">For Lease</option>
           </select>
         </div>
         <div className="mb-4">
@@ -252,9 +257,11 @@ const AddProperty = () => {
           <select
             id="condition"
             name="condition"
+            onChange={handleChange}
             className="p-2 border rounded w-full"
             required
           >
+            <option value="">Select One</option>
             <option value="new">New</option>
             <option value="good">Good</option>
             <option value="Needs-Renovation">Needs Renovation</option>

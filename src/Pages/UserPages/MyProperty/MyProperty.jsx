@@ -97,7 +97,7 @@ const MyProperty = () => {
                 {property.paymentStatus === "due" && (
                   <button
                     onClick={() => handlePay(property._id)}
-                    title="100 tk pay for public its a fake payment system"
+                    title={`100 tk pay for public its a fake payment system`}
                     className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded"
                   >
                     Pay

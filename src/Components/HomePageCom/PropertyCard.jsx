@@ -1,23 +1,27 @@
 const PropertyCard = ({ property }) => {
   return (
-    <div className="max-w-sm bg-white rounded-lg shadow-md overflow-hidden">
+    <div className="max-w-sm min-w-[370px] p-2 bg-white rounded-lg shadow-md overflow-hidden">
       {/* Property Image */}
       <div
-        className="h-48 w-full bg-cover bg-center"
+        className="h-48 w-full bg-cover bg-center "
         style={{ backgroundImage: `url(${property.images[0]})` }}
       ></div>
 
       {/* Property Details */}
       <div className="p-4">
         <h3 className="text-xl font-semibold mb-2">{property.title}</h3>
-        <p className="text-gray-600 mb-2">
+        <p className="text-gray-600 mb-2 min-h-[80px]">
           {" "}
           {property.description.substring(0, 100)}...
         </p>
-        <p className="text-lg font-bold text-blue-600 mb-4">
-          ${property.price}
-        </p>
-
+        <div className="flex justify-between">
+          <p className="text-lg font-bold text-blue-600 mb-4">
+            ${property.price}
+          </p>
+          <p className="text-sm font-bold text-red-600 mb-4">
+            {property.listingType}
+          </p>
+        </div>
         {/* Location */}
         <p className="text-gray-600">
           {property.upazila}, {property.district}, {property.division}
@@ -25,7 +29,7 @@ const PropertyCard = ({ property }) => {
 
         {/* Amenities */}
 
-        <div className="mt-4">
+        <div className="mt-4 min-h-[150px]">
           <h4 className="text-gray-800 font-semibold mb-2">Amenities</h4>
           <ul className="list-disc list-inside text-gray-600">
             {property.amenities.slice(0, 3).map((amenity, index) => (
@@ -47,41 +51,6 @@ const PropertyCard = ({ property }) => {
       </div>
     </div>
   );
-  // return (
-  //   <div className="max-w-sm rounded-lg overflow-hidden shadow-lg capitalize bg-white">
-  //     <img
-  //       className="w-full h-48 object-cover"
-  //       src={property.images[0]}
-  //       alt={property.title}
-  //     />
-  //     <div className="px-6 py-4">
-  //       <div className="font-bold text-xl mb-2">{property.title}</div>
-  //       <div className="font-bold text-xl mb-2">
-  //         <p>{property.state && property.state}</p>
-
-  //         <p>
-  //           {property.upazila +
-  //             ", " +
-  //             property.district +
-  //             ", " +
-  //             property.division}
-  //         </p>
-  //       </div>
-  //       <p className="text-gray-700 text-base">
-  //         {property.description.substring(0, 100)}...
-  //       </p>
-  //     </div>
-  //     <div className="px-6 py-4 flex justify-between items-center">
-  //       <span className="font-bold text-lg">${property.price}/month</span>
-  //       <a
-  //         href={`/properties/${property._id}`}
-  //         className="text-blue-500 hover:underline"
-  //       >
-  //         View Details
-  //       </a>
-  //     </div>
-  //   </div>
-  // );
 };
 
 export default PropertyCard;

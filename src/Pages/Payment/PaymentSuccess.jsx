@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const PaymentSuccess = () => {
   const location = useLocation();
@@ -83,11 +83,18 @@ const PaymentSuccess = () => {
           <p>{amount} /-</p>
         </div>
       </div>
+
       <button
         className="btn print:hidden btn-sm block bg-pink-500 w-full"
         onClick={() => window.print()}
       >
         Print
+      </button>
+      <button
+        className="btn print:hidden btn-sm block bg-blue-500 w-full"
+      
+      >
+        <Link to={"/listing"}>Go to listing page</Link>
       </button>
     </div>
   );

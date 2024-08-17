@@ -10,39 +10,21 @@ const ListingsPage = () => {
   const [filters, setFilters] = useState({});
   const [totalPages, setTotalPages] = useState(1);
   const [allProperties, setAllProperties] = useState([]);
-  const [publishProperties, setPublishProperties] = useState([]);
 
   useEffect(() => {
-    const fetchAllProperties = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3000/properties`,
-          {
-            params: { ...filters, page: currentPage },
-          }
-        );
+    axios
+      .get(`https://barivarabangladeshserver.vercel.app/properties`, {
+        params: { ...filters, page: currentPage },
+      })
+      .then((response) => {
         setAllProperties(response.data.properties);
         setTotalPages(response.data.totalPages);
-      } catch (error) {
-        console.error("Error fetching properties:", error);
-      }
-    };
-
-    fetchAllProperties();
-    const publishProperties = allProperties?.filter(
-      (property) => property.publishStatus == "published"
-    );
-    setPublishProperties(publishProperties);
-  }, [filters, currentPage, allProperties]);
+      });
+  }, [filters, currentPage]);
 
   const handleSearch = (searchTerm) => {
     setFilters((prev) => ({ ...prev, search: searchTerm }));
     setCurrentPage(1); // Reset to page 1 on new search
-  };
-
-  const handleFilter = () => {
-    setFilters((prev) => ({ ...filters, ...prev }));
-    setCurrentPage(1); // Reset to page 1 on new filter
   };
 
   const handlePageChange = (page) => {
@@ -51,20 +33,19 @@ const ListingsPage = () => {
 
   return (
     <div className="flex flex-col justify-between min-h-[700px]">
-      <div className="">
+      <div className="mt-4">
         <SearchBar onSearch={handleSearch} />
-        <Filter onFilter={handleFilter} />
+        <Filter onFilter={setFilters} setCurrentPage={setCurrentPage} />
       </div>
-      {publishProperties?.length > 1 && (
-        <p className="text-center"> Search Result: {publishProperties?.length} </p>
-      )}
 
       <section className="py-8">
         <div className="max-w-6xl mx-auto flex justify-center">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
-            {publishProperties?.map((property) => (
-              <PropertyCard key={property._id} property={property} />
-            ))}
+            {allProperties
+              ?.filter((property) => property.publishStatus == "published")
+              ?.map((property) => (
+                <PropertyCard key={property._id} property={property} />
+              ))}
           </div>
         </div>
       </section>

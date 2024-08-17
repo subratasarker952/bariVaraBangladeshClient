@@ -7,7 +7,7 @@ import {
 } from "../../../public/bangladeshAddress";
 import { rentalTypes } from "../../../public/RentalTypes";
 
-const Filter = ({ onFilter }) => {
+const Filter = ({ onFilter, setCurrentPage }) => {
   const [divisions, setDivisions] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [upazilas, setUpazilas] = useState([]);
@@ -103,6 +103,7 @@ const Filter = ({ onFilter }) => {
   };
 
   const handleFilter = () => {
+    setCurrentPage(1);
     onFilter({ ...filters });
   };
 
