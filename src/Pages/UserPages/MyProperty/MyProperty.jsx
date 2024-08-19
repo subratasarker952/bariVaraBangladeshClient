@@ -3,31 +3,45 @@ import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import Loading from "../../../Components/SharedComponent/Loading";
 
 const MyProperty = () => {
   const { user } = useAuth();
   const [properties, setProperties] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    axios
-      .get(`https://barivarabangladeshserver.vercel.app/properties/email?email=${user?.email}`, {
-        headers: {
-          authorization: `barer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => setProperties(response.data));
+    try {
+      setLoading(true);
+      axios
+        .get(
+          `https://barivarabangladeshserver.vercel.app/properties/email?email=${user?.email}`,
+          {
+            headers: {
+              authorization: `barer ${localStorage.getItem("token")}`,
+            },
+          }
+        )
+        .then((response) => setProperties(response.data));
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.message);
+    }
   }, [user, properties]);
 
   const handleDelete = (property) => {
     const sure = window.confirm("Are You Sure? Delete " + property.title);
     if (sure) {
-      fetch(`https://barivarabangladeshserver.vercel.app/properties/${property._id}`, {
-        method: "DELETE",
-        headers: {
-          "content-type": "application/json",
-          authorization: `barer ${localStorage.getItem("token")}`,
-        },
-      })
+      fetch(
+        `https://barivarabangladeshserver.vercel.app/properties/${property._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+            authorization: `barer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
         .then((response) => response.json())
         .then((data) => {
           if (data.deletedCount > 0) {
@@ -58,6 +72,7 @@ const MyProperty = () => {
         // }
       });
   };
+  if (loading) return <Loading />;
 
   return (
     <div className="container mx-auto px-4 py-8">

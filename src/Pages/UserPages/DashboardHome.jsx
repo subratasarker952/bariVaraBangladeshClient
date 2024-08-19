@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Loading from "../../Components/SharedComponent/Loading";
 
 const DashboardHome = () => {
   const [states, setStates] = useState({});
@@ -14,6 +15,8 @@ const DashboardHome = () => {
       .then((response) => response.json())
       .then((json) => setStates(json));
   }, [states]);
+  if (!states) return <Loading />;
+
 
 
   return (

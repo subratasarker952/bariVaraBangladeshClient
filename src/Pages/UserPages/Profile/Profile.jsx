@@ -2,16 +2,24 @@ import { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import Loading from "../../../Components/SharedComponent/Loading";
 
 const Profile = () => {
-  const { user, userLoading, passwordReset, userInDb, setUserInDb } = useAuth();
+  const { user, passwordReset, userInDb, setUserInDb } = useAuth();
   const [disabled, setDisabled] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch(`https://barivarabangladeshserver.vercel.app/users/${user?.email}`)
-      .then((response) => response.json())
-      .then((json) => setUserInDb(json));
+    try {
+      setLoading(true);
+      fetch(`https://barivarabangladeshserver.vercel.app/users/${user?.email}`)
+        .then((response) => response.json())
+        .then((json) => setUserInDb(json));
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.message);
+    }
   }, [user, setUserInDb]);
-  if (userLoading) <h2>Loading</h2>;
 
   const handlePasswordReset = () => {
     const sure = window.confirm("Are You Sure? Change Your Password?");
@@ -26,6 +34,8 @@ const Profile = () => {
         });
     }
   };
+  if (loading) return <Loading />;
+
   return (
     <div className="">
       <div className="text-center my-5">
