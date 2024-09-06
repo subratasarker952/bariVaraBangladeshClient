@@ -2,8 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
-  const { user, userLoading, logOutUser, userInDb } = useAuth();
-  if (userLoading) return <p>Loading...</p>;
+  const { user, logOutUser, userInDb } = useAuth();
   const menu = (
     <>
       <NavLink className="px-3 text-xl capitalize m-1" to="/listing">

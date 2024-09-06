@@ -4,22 +4,32 @@ import axios from "axios";
 import SearchBar from "../../Components/ListingComponent/SearchBar";
 import Filter from "../../Components/ListingComponent/Filter";
 import PaginationControls from "../../Components/ListingComponent/PaginationControls";
+import toast from "react-hot-toast";
+import Loading from "../../Components/SharedComponent/Loading";
 
 const ListingsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState({});
   const [totalPages, setTotalPages] = useState(1);
   const [allProperties, setAllProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(`https://barivarabangladeshserver.vercel.app/properties`, {
-        params: { ...filters, page: currentPage },
-      })
-      .then((response) => {
-        setAllProperties(response.data.properties);
-        setTotalPages(response.data.totalPages);
-      });
+    try {
+      setLoading(true);
+      axios
+        .get(`https://barivarabangladeshserver.vercel.app/properties`, {
+          params: { ...filters, page: currentPage },
+        })
+        .then((response) => {
+          setAllProperties(response.data.properties);
+          setTotalPages(response.data.totalPages);
+        });
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.message);
+    }
   }, [filters, currentPage]);
 
   const handleSearch = (searchTerm) => {
@@ -30,7 +40,7 @@ const ListingsPage = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-
+  if (loading) return <Loading />;
   return (
     <div className="flex flex-col justify-between min-h-[700px]">
       <div className="mt-4">
