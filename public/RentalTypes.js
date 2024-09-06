@@ -1,6 +1,8 @@
 export const rentalTypes = [
-  "Apartment",
   "House",
+  "Sublet",
+  "Bachelor",
+  "Apartment",
   "Condominium",
   "Townhouse",
   "Duplex",

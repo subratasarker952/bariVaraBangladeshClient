@@ -10,9 +10,10 @@ import { rentalTypes } from "../../../../public/RentalTypes";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+const apiKey = "2b8e612910de513b98a70f8ee1891574";
 
 const AddProperty = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [property, setProperty] = useState({
     title: "",
@@ -28,6 +29,7 @@ const AddProperty = () => {
     whatsApp: "",
     type: "",
     images: [],
+    imagesDeleteUrl: [],
     amenities: "",
     condition: "",
     email: "",
@@ -128,32 +130,32 @@ const AddProperty = () => {
       toast.error("upto 6 images");
       return;
     }
-
-    const formData = new FormData();
+    const imagesUrl = [];
+    const imagesDeleteUrl = [];
 
     for (let i = 0; i < files?.length; i++) {
-      formData.append("images", files[i]);
-    }
-
-    try {
-      const response = await axios.post(
-        `https://barivarabangladeshserver.vercel.app/imageUpload`,
-        formData,
+      const formData = new FormData();
+      formData.append("image", files[i]);
+      const response = await fetch(
+        `https://api.imgbb.com/1/upload?expiration=259200&key=${apiKey}`,
         {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          method: "POST",
+          body: formData,
         }
       );
-      setProperty({
-        ...property,
-        images: response.data,
-      });
-    } catch (error) {
-      console.error("Error submitting form", error);
-      toast.error("Failed to create property");
+      const data = await response.json();
+      imagesUrl.push(data.data.display_url);
+      imagesDeleteUrl.push(data.data.delete_url);
     }
+    setProperty({
+      ...property,
+      images: [...imagesUrl],
+      imagesDeleteUrl: [...imagesDeleteUrl],
+    });
+    // console.log(imagesDeleteUrl)
+    // console.log(imagesUrl)
   };
+  // console.log(property)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -171,7 +173,7 @@ const AddProperty = () => {
 
       if (response.status === 201) {
         toast.success("Property created successfully");
-        navigate('/dashboard/myProperty')
+        navigate("/dashboard/myProperty");
       } else {
         toast.error("Failed to create property");
       }

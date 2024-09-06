@@ -18,7 +18,7 @@ const MyProperty = () => {
       .then((response) => setProperties(response.data));
   }, [user, properties]);
 
-  const handleDelete = (property) => {
+  const handleDelete = async (property) => {
     const sure = window.confirm("Are You Sure? Delete " + property.title);
     if (sure) {
       fetch(`https://barivarabangladeshserver.vercel.app/properties/${property._id}`, {
