@@ -13,7 +13,10 @@ const Profile = () => {
       setLoading(true);
       fetch(`https://barivarabangladeshserver.vercel.app/users/${user?.email}`)
         .then((response) => response.json())
-        .then((json) => setUserInDb(json));
+        .then((json) => {
+          setUserInDb(json);
+          setLoading(false);
+        });
       setLoading(false);
     } catch (error) {
       setLoading(false);

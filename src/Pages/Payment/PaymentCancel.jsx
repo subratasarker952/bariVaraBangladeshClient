@@ -4,8 +4,8 @@ const PaymentCancel = () => {
   return (
     <div>
       <p>PaymentCancel</p>
-      <Link className="btn" to={"/user/orders"}>
-        Go to Order Page
+      <Link className="btn" to={"/"}>
+        Go to Home Page
       </Link>
     </div>
   );

@@ -17,7 +17,7 @@ import Contact from "../Pages/Contact/Contact";
 import Privacy from "../Pages/Privacy/Privacy";
 import MyProperty from "../Pages/UserPages/MyProperty/MyProperty";
 import Terms from "../Pages/terms/Terms";
-import EditeProperty from "../Pages/UserPages/EditeProperty/EditeProperty";
+import EditProperty from "../Pages/UserPages/EditeProperty/EditeProperty";
 import PaymentCancel from "../Pages/Payment/PaymentCancel";
 import PaymentFail from "../Pages/Payment/PaymentFail";
 import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
@@ -105,7 +105,7 @@ const router = createBrowserRouter([
         element: <EditProfile />,
         loader: ({ params }) =>
           fetch(
-            `https://digitalfurnitureserver.vercel.app/users/get/${params.id}`
+            `https://barivarabangladeshserver.vercel.app/users/get/${params.id}`
           ),
       },
       {
@@ -114,7 +114,7 @@ const router = createBrowserRouter([
       },
       {
         path: "editProperty/:id",
-        element: <EditeProperty />,
+        element: <EditProperty />,
         loader: ({ params }) =>
           fetch(`https://barivarabangladeshserver.vercel.app/properties/${params.id}`),
       },

@@ -33,9 +33,14 @@ const AddProperty = () => {
     amenities: "",
     condition: "",
     email: "",
-    paymentStatus: "due",
-    publishStatus: "hidden",
     owner: user?.email || "",
+    // For paid service //
+    // paymentStatus: "due",
+    // publishStatus: "hidden",
+    
+    //  For Free service //
+    paymentStatus: "paid",
+    publishStatus: "published",
   });
   const [divisions, setDivisions] = useState([]);
   const [districts, setDistricts] = useState([]);

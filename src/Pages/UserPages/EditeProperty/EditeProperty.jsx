@@ -10,7 +10,7 @@ import axios from "axios";
 import { useLoaderData } from "react-router-dom";
 import toast from "react-hot-toast";
 
-const EditeProperty = () => {
+const EditProperty = () => {
   const loaderData = useLoaderData();
   const [property, setProperty] = useState(loaderData);
   const [divisions, setDivisions] = useState([]);
@@ -128,6 +128,7 @@ const EditeProperty = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(property)
     const sure = window.confirm("Are you sure Update Product information?");
     if (sure) {
       try {
@@ -235,15 +236,38 @@ const EditeProperty = () => {
           ></textarea>
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700">Condition </label>
-          <input
-            type="text"
+          <label htmlFor="condition" className="block text-gray-700">
+            Condition <span className="text-red-500">*</span>
+          </label>
+          <select
+            id="condition"
             name="condition"
-            placeholder="Rent For A month"
-            value={property.condition}
             onChange={handleChange}
             className="p-2 border rounded w-full"
-          />
+            required
+          >
+            <option value="">Select One</option>
+            <option value="new">New</option>
+            <option value="good">Good</option>
+            <option value="Needs-Renovation">Needs Renovation</option>
+          </select>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="listingType" className="block text-gray-700">
+            Listing Type <span className="text-red-500">*</span>
+          </label>
+          <select
+            id="listingType"
+            name="listingType"
+            onChange={handleChange}
+            className="p-2 border rounded w-full"
+            required
+          >
+            <option value="">Select One</option>
+            <option value="For-Rent">For Rent</option>
+            <option value="For-Sale">For Sale</option>
+            <option value="For-Lease">For Lease</option>
+          </select>
         </div>
         <div className="mb-4">
           <label className="block text-gray-700">
@@ -257,14 +281,9 @@ const EditeProperty = () => {
             onChange={handleChange}
           >
             <option value="">Select Type</option>
-            {rentalTypes.map((rentalType) => (
-              <option
-                key={rentalType.id}
-                value={rentalType.type}
-                title={rentalType.description}
-                className="capitalize"
-              >
-                {rentalType.type}
+            {rentalTypes.map((rentalType, index) => (
+              <option key={index} value={rentalType} className="capitalize">
+                {rentalType}
               </option>
             ))}
           </select>
@@ -336,15 +355,12 @@ const EditeProperty = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700">
-                Post Office <span className="text-red-500">*</span>
-              </label>
+              <label className="block text-gray-700">Post Office</label>
 
               <select
                 className="p-2 border rounded w-[200px]"
                 onChange={handlePostOfficeChange}
                 value={selectedPostOffice}
-                required
               >
                 <option value="">Select Post Office </option>
                 {postOffices
@@ -431,4 +447,4 @@ const EditeProperty = () => {
   );
 };
 
-export default EditeProperty;
+export default EditProperty;

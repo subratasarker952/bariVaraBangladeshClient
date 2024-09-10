@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Loading from "../../Components/SharedComponent/Loading";
 
 const DashboardHome = () => {
-  const [states, setStates] = useState({});
+  const [states, setStates] = useState(null);
 
   useEffect(() => {
     fetch(`https://barivarabangladeshserver.vercel.app/states`, {
@@ -13,31 +13,32 @@ const DashboardHome = () => {
       },
     })
       .then((response) => response.json())
-      .then((json) => setStates(json));
+      .then((json) => {
+        setStates(json);
+      });
   }, [states]);
-  if (!states) return <Loading />;
-
-
 
   return (
     <div className="">
       <div className="my-10 p-6 ">
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6">
-          <div className="h-[200px] rounded-lg p-5 shadow-xl bg-white text-3xl w-full flex justify-center items-center">
-            <p className=""> Total Property:- {states.properties || 0}</p>
+        {states ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6">
+            <div className="h-[200px] rounded-lg p-5 shadow-xl bg-white text-3xl w-full flex justify-center items-center">
+              <p className=""> Total Property:- {states?.properties || 0}</p>
+            </div>
+            <div className="h-[200px] rounded-lg p-5 shadow-xl bg-white text-3xl w-full flex justify-center items-center">
+              <p className="">Total Users:- {states?.users || 0}</p>
+            </div>
+            <div className="h-[200px] rounded-lg p-5 shadow-xl bg-white text-3xl w-full flex justify-center items-center">
+              <p className="">Save Property:- {states?.products || 0}</p>
+            </div>
+            <div className="h-[200px] rounded-lg p-5 shadow-xl bg-white text-3xl w-full flex justify-center items-center">
+              <p className=""> Publish Property:- {states?.reviews || 0}</p>
+            </div>
           </div>
-          <div className="h-[200px] rounded-lg p-5 shadow-xl bg-white text-3xl w-full flex justify-center items-center">
-            <p className="">Total Users:- {states.users || 0}</p>
-          </div>
-          <div className="h-[200px] rounded-lg p-5 shadow-xl bg-white text-3xl w-full flex justify-center items-center">
-            <p className="">
-              Save Property:- {states.products || 0}
-            </p>
-          </div>
-          <div className="h-[200px] rounded-lg p-5 shadow-xl bg-white text-3xl w-full flex justify-center items-center">
-            <p className=""> Publish Property:- {states.reviews || 0}</p>
-          </div>
-        </div>
+        ) : (
+          <Loading />
+        )}
       </div>
       <div></div>
     </div>

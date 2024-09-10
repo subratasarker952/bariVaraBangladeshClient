@@ -47,7 +47,7 @@ const EditProfile = () => {
     const sure = window.confirm("Are you sure Update Product information?");
     if (sure) {
       fetch(
-        `https://digitalfurnitureserver.vercel.app/users/${loadedUser?._id}`,
+        `https://barivarabangladeshserver.vercel.app/users/${loadedUser?._id}`,
         {
           method: "PATCH",
           headers: {
