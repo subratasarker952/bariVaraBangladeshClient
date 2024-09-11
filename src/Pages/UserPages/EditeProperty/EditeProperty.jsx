@@ -9,6 +9,7 @@ import { rentalTypes } from "../../../../public/RentalTypes";
 import axios from "axios";
 import { useLoaderData } from "react-router-dom";
 import toast from "react-hot-toast";
+const apiKey = "2b8e612910de513b98a70f8ee1891574";
 
 const EditProperty = () => {
   const loaderData = useLoaderData();
@@ -100,35 +101,38 @@ const EditProperty = () => {
   };
 
   const handleImageChange = async (e) => {
-    const files = e.target.files;
-    const formData = new FormData();
+    let files = e.target.files;
+
+    if (files?.length > 6) {
+      toast.error("upto 6 images");
+      return;
+    }
+    const imagesUrl = [];
+    const imagesDeleteUrl = [];
 
     for (let i = 0; i < files?.length; i++) {
-      formData.append("images", files[i]);
-    }
-
-    try {
-      const response = await axios.post(
-        `https://barivarabangladeshserver.vercel.app/imageUpload`,
-        formData,
+      const formData = new FormData();
+      formData.append("image", files[i]);
+      const response = await fetch(
+        `https://api.imgbb.com/1/upload?expiration=259200&key=${apiKey}`,
         {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          method: "POST",
+          body: formData,
         }
       );
-      setProperty({
-        ...property,
-        images: response.data,
-      });
-    } catch (error) {
-      console.error("Error submitting form", error);
-      toast.error("Failed to create property");
+      const data = await response.json();
+      imagesUrl.push(data.data.display_url);
+      imagesDeleteUrl.push(data.data.delete_url);
     }
+    setProperty({
+      ...property,
+      images: [...imagesUrl],
+      imagesDeleteUrl: [...imagesDeleteUrl],
+    });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(property)
+    console.log(property);
     const sure = window.confirm("Are you sure Update Product information?");
     if (sure) {
       try {
@@ -243,6 +247,7 @@ const EditProperty = () => {
             id="condition"
             name="condition"
             onChange={handleChange}
+            value={property.condition}
             className="p-2 border rounded w-full"
             required
           >
@@ -260,6 +265,7 @@ const EditProperty = () => {
             id="listingType"
             name="listingType"
             onChange={handleChange}
+            value={property.listingType}
             className="p-2 border rounded w-full"
             required
           >
@@ -300,6 +306,7 @@ const EditProperty = () => {
                 required
                 onChange={handleDivisionChange}
                 value={selectedDivision}
+
               >
                 <option value="">Select Division</option>
                 {divisions.map((division) => (
