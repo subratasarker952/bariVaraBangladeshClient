@@ -7,7 +7,7 @@ import Loading from "../../../Components/SharedComponent/Loading";
 
 const MyProperty = () => {
   const { user } = useAuth();
-  const [properties, setProperties] = useState([]);
+  const [properties, setProperties] = useState(null);
   useEffect(() => {
     try {
       axios
@@ -68,11 +68,13 @@ const MyProperty = () => {
         // }
       });
   };
+  if (!properties) return <Loading />;
 
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-8 text-center">My Properties</h1>
-      {properties.length ? (
+
+      {properties?.length ? (
         <table className="w-full bg-white ">
           <thead>
             <tr>
@@ -122,7 +124,7 @@ const MyProperty = () => {
           </tbody>
         </table>
       ) : (
-        <Loading />
+        <p className="text-center">You have no property</p>
       )}
     </div>
   );

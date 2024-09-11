@@ -7,19 +7,14 @@ import Loading from "../../../Components/SharedComponent/Loading";
 const Profile = () => {
   const { user, passwordReset, userInDb, setUserInDb } = useAuth();
   const [disabled, setDisabled] = useState(false);
-  const [loading, setLoading] = useState(true);
   useEffect(() => {
     try {
-      setLoading(true);
       fetch(`https://barivarabangladeshserver.vercel.app/users/${user?.email}`)
         .then((response) => response.json())
         .then((json) => {
           setUserInDb(json);
-          setLoading(false);
         });
-      setLoading(false);
     } catch (error) {
-      setLoading(false);
       toast.error(error.message);
     }
   }, [user, setUserInDb]);
@@ -37,49 +32,52 @@ const Profile = () => {
         });
     }
   };
-  if (loading) return <Loading />;
 
   return (
     <div className="">
-      <div className="text-center my-5">
-        <div className=" md:flex  ">
-          <div className="flex-1">
-            {userInDb?.img && (
-              <img
-                className="h-[200px] w-[200px] mx-auto"
-                src={userInDb?.img}
-                alt={"User Img"}
-              />
-            )}
-          </div>
-          <div className="flex-1 flex justify-center items-center text-xl">
-            <div>
-              <p>Email:- {userInDb?.email}</p>
-              {userInDb?.displayName && <p>Name:- {userInDb?.displayName}</p>}
-              {userInDb?.age && <p>age:- {userInDb?.age} Years</p>}
-              {userInDb?.role && <p>Role:- {userInDb?.role}</p>}
-              {userInDb?.description && (
-                <p>about your self:- {userInDb?.description}</p>
+      {userInDb ? (
+        <div className="text-center my-5">
+          <div className=" md:flex  ">
+            <div className="flex-1">
+              {userInDb?.img && (
+                <img
+                  className="h-[200px] w-[200px] mx-auto"
+                  src={userInDb?.img}
+                  alt={"User Img"}
+                />
               )}
             </div>
+            <div className="flex-1 flex justify-center items-center text-xl">
+              <div>
+                <p>Email:- {userInDb?.email}</p>
+                {userInDb?.displayName && <p>Name:- {userInDb?.displayName}</p>}
+                {userInDb?.age && <p>age:- {userInDb?.age} Years</p>}
+                {userInDb?.role && <p>Role:- {userInDb?.role}</p>}
+                {userInDb?.description && (
+                  <p>about your self:- {userInDb?.description}</p>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="flex gap-2 my-5">
+            <Link
+              to={`/dashboard/editProfile/${userInDb?._id}`}
+              className="btn btn-primary  flex-1"
+            >
+              Edit Profile
+            </Link>
+            <button
+              disabled={disabled}
+              onClick={handlePasswordReset}
+              className="btn btn-primary flex-1 "
+            >
+              Change Password
+            </button>
           </div>
         </div>
-        <div className="flex gap-2 my-5">
-          <Link
-            to={`/dashboard/editProfile/${userInDb?._id}`}
-            className="btn btn-primary  flex-1"
-          >
-            Edit Profile
-          </Link>
-          <button
-            disabled={disabled}
-            onClick={handlePasswordReset}
-            className="btn btn-primary flex-1 "
-          >
-            Change Password
-          </button>
-        </div>
-      </div>
+      ) : (
+        <Loading />
+      )}
     </div>
   );
 };
